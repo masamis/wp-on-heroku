@@ -1,0 +1,4 @@
+[02-Jun-2023 09:31:35 UTC] PHP Warning:  mysqli_real_connect(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: NO) in /Applications/MAMP/htdocs/public/wp-heroku/wp-includes/class-wpdb.php on line 2019
+[02-Jun-2023 09:31:40 UTC] PHP Warning:  mysqli_real_connect(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: NO) in /Applications/MAMP/htdocs/public/wp-heroku/wp-includes/class-wpdb.php on line 2019
+[02-Jun-2023 09:32:23 UTC] PHP Warning:  mysqli_real_connect(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: NO) in /Applications/MAMP/htdocs/public/wp-heroku/wp-includes/class-wpdb.php on line 2019
+[02-Jun-2023 09:33:03 UTC] PHP Warning:  mysqli_real_connect(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: NO) in /Applications/MAMP/htdocs/public/wp-heroku/wp-includes/class-wpdb.php on line 2019

@@ -18,24 +18,47 @@
  * @package WordPress
  */
 
-// ** Database settings - You can get this info from your web host ** //
-/** The name of the database for WordPress */
-define( 'DB_NAME', 'wpheroku' );
 
-/** Database username */
-define( 'DB_USER', 'root' );
 
-/** Database password */
-define( 'DB_PASSWORD', 'root' );
 
-/** Database hostname */
-define( 'DB_HOST', 'localhost' );
+if ( file_exists( dirname( __DIR__ ) . '/wp-heroku/local-config.php' ) ) {
 
-/** Database charset to use in creating database tables. */
-define( 'DB_CHARSET', 'utf8mb4' );
 
-/** The database collate type. Don't change this if in doubt. */
-define( 'DB_COLLATE', '' );
+	/** Declare Dev-mode for WordPress */
+    define( 'WP_LOCAL_DEV', true );
+    /** Include config for dev environment */
+    include( dirname( __DIR__ ) . '/wp-heroku/local-config.php' );
+}
+ else {
+
+    $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+    /** The name of the database for WordPress */
+    define("DB_NAME", trim($url["path"], "/"));
+    /** MySQL database username */
+    define("DB_USER", trim($url["user"]));
+    /** MySQL database password */
+    define("DB_PASSWORD", trim($url["pass"]));
+    /** MySQL hostname */
+    define("DB_HOST", trim($url["host"]));
+    /** MySQL database port  */
+    // define("DB_PORT", trim($url["port"]));
+    /** Database Charset to use in creating database tables. */
+    define("DB_CHARSET", "utf8");
+    /** Allows both foobar.com and foobar.herokuapp.com to load media assets correctly. Also adds /wp/ to give WordPress its own directory. */
+    define("WP_SITEURL", "http://" . $_SERVER["HTTP_HOST"] . "/");
+    define("WP_HOME", "http://" . $_SERVER["HTTP_HOST"]);
+    define("FORCE_SSL_LOGIN", getenv("FORCE_SSL_LOGIN") == "true");
+    define("FORCE_SSL_ADMIN", getenv("FORCE_SSL_ADMIN") == "true");
+    if ($_SERVER["HTTP_X_FORWARDED_PROTO"] == "https")
+      $_SERVER["HTTPS"] = "on";
+    /** Disable the built-in cron job */
+    define("DISABLE_WP_CRON", getenv("DISABLE_WP_CRON") == "true");
+    /** Disable automatic updates, they won't survive restarting and scaling dynos */
+    define("AUTOMATIC_UPDATER_DISABLED", true );
+    /**  Prevent File Modifications */
+    define ("DISALLOW_FILE_EDIT", true );
+
+ }
 
 /**#@+
  * Authentication unique keys and salts.
@@ -79,7 +102,7 @@ $table_prefix = 'wp_';
  *
  * @link https://wordpress.org/documentation/article/debugging-in-wordpress/
  */
-define( 'WP_DEBUG', false );
+//define( 'WP_DEBUG', false );
 
 /* Add any custom values between this line and the "stop editing" line. */
 
